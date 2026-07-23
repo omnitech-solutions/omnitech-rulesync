@@ -6,4 +6,4 @@ signals: [ui, browser, hydration, accessibility, visual, component, page]
 stages:
   - { id: reproduce-in-browser, skills: [systematic-debugging], gate: evidence }
   - { id: implement, skills: [], gate: none }
-  - { id: browser-verification, skills: [testing, verification-before-completion], gate: evidence }
+  - { id: browser-verification, skills: [testing, verification-before-completion], sourceSkills: [playwright-expert], gate: evidence }

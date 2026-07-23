@@ -5,4 +5,9 @@ autoSelectScore: 80
 detect:
   - { kind: packageDependency, name: prisma, score: 100 }
   - { kind: file, pattern: prisma/schema.prisma, score: 100 }
-includes: { rules: [prisma], skills: [testing], workflows: [migration, review] }
+includes:
+  rules: [prisma]
+  skills: [testing]
+  workflows: [migration, review]
+  sources:
+    - { source: jeffallan/claude-skills, ref: main, trust: community, skills: [postgres-pro] }

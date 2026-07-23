@@ -4,9 +4,9 @@ intents: [bug, debugging]
 priority: 8
 signals: [bug, fix, broken, error, failed, failure, crash, regression, unexpected]
 stages:
-  - { id: diagnose-root-cause, skills: [systematic-debugging], gate: evidence }
+  - { id: diagnose-root-cause, skills: [systematic-debugging], sourceSkills: [debugging-wizard], gate: evidence }
   - { id: reproduce, skills: [testing], gate: evidence }
   - { id: implement-fix, skills: [], gate: none }
-  - { id: regression-test, skills: [testing], gate: evidence }
+  - { id: regression-test, skills: [testing], sourceSkills: [test-master], gate: evidence }
   - { id: verify, skills: [verification-before-completion], gate: evidence }
-  - { id: review, skills: [code-review], gate: evidence }
+  - { id: review, skills: [code-review], sourceSkills: [code-reviewer], gate: evidence }

@@ -5,4 +5,9 @@ autoSelectScore: 80
 detect:
   - { kind: file, pattern: tsconfig.json, score: 90 }
   - { kind: packageDependency, name: typescript, score: 90 }
-includes: { rules: [typescript], skills: [testing], workflows: [feature, bug, test, review] }
+includes:
+  rules: [typescript]
+  skills: [testing]
+  workflows: [feature, bug, test, review]
+  sources:
+    - { source: jeffallan/claude-skills, ref: main, trust: community, skills: [typescript-pro] }

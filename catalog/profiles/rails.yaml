@@ -5,4 +5,9 @@ autoSelectScore: 80
 detect:
   - { kind: gem, name: rails, score: 100 }
   - { kind: file, pattern: config/application.rb, score: 90 }
-includes: { rules: [rails], skills: [testing], workflows: [feature, bug, test, review, migration] }
+includes:
+  rules: [rails]
+  skills: [testing]
+  workflows: [feature, bug, test, review, migration]
+  sources:
+    - { source: jeffallan/claude-skills, ref: main, trust: community, skills: [rails-expert] }

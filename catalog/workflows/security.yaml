@@ -4,7 +4,7 @@ intents: [security]
 priority: 20
 signals: [security, vulnerability, cve, auth, authorization, injection, xss, csrf, ssrf, secret]
 stages:
-  - { id: threat-analysis, skills: [systematic-debugging], gate: evidence }
+  - { id: threat-analysis, skills: [systematic-debugging], sourceSkills: [security-reviewer], gate: evidence }
   - { id: remediation-plan, skills: [planning], gate: approval }
-  - { id: implement-or-report, skills: [], gate: none }
-  - { id: security-verification, skills: [testing, verification-before-completion, code-review], gate: evidence }
+  - { id: implement-or-report, skills: [], sourceSkills: [secure-code-guardian], gate: none }
+  - { id: security-verification, skills: [testing, verification-before-completion, code-review], sourceSkills: [test-master, security-reviewer], gate: evidence }

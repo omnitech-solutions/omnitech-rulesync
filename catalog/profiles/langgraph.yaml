@@ -5,4 +5,9 @@ autoSelectScore: 80
 detect:
   - { kind: packageDependency, name: "@langchain/langgraph", score: 100 }
   - { kind: packageDependency, name: langchain, score: 90 }
-includes: { rules: [ai-workflows], skills: [testing], workflows: [feature, bug, test, review] }
+includes:
+  rules: [ai-workflows]
+  skills: [testing]
+  workflows: [feature, bug, test, review]
+  sources:
+    - { source: jeffallan/claude-skills, ref: main, trust: community, skills: [prompt-engineer, rag-architect] }

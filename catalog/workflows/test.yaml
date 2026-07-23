@@ -4,6 +4,6 @@ intents: [test, verification]
 priority: 7
 signals: [test, coverage, spec, verify, qa]
 stages:
-  - { id: inspect-behavior, skills: [testing], gate: none }
+  - { id: inspect-behavior, skills: [testing], sourceSkills: [test-master], gate: none }
   - { id: add-or-repair-tests, skills: [testing], gate: none }
   - { id: run-focused-checks, skills: [verification-before-completion], gate: evidence }

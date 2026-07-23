@@ -4,9 +4,9 @@ intents: [feature, implementation]
 priority: 4
 signals: [implement, build, add feature, create, integrate, support]
 stages:
-  - { id: resolve-design, skills: [brainstorming], gate: approval }
+  - { id: resolve-design, skills: [brainstorming], sourceSkills: [feature-forge, architecture-designer], gate: approval }
   - { id: plan, skills: [planning], gate: approval }
-  - { id: implement, skills: [], gate: none }
-  - { id: test, skills: [testing], gate: evidence }
+  - { id: implement, skills: [], sourceSkills: [fullstack-guardian], gate: none }
+  - { id: test, skills: [testing], sourceSkills: [test-master], gate: evidence }
   - { id: verify, skills: [verification-before-completion], gate: evidence }
-  - { id: review, skills: [code-review], gate: evidence }
+  - { id: review, skills: [code-review], sourceSkills: [code-reviewer], gate: evidence }

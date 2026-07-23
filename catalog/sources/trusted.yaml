@@ -4,3 +4,25 @@ sources:
   - { id: vercel, repository: vercel-labs/agent-skills, trust: vendor, updatePolicy: review, allowedSkills: [react-best-practices, composition-patterns, web-design-guidelines] }
   - { id: langchain, repository: langchain-ai/langchain-skills, trust: vendor, updatePolicy: review, allowedSkills: [langchain, langgraph] }
   - { id: superpowers-ruby, repository: lucianghinda/superpowers-ruby, trust: community, updatePolicy: review, allowedSkills: [ruby, rails-guides, brakeman, test-driven-development] }
+  - id: jeffallan
+    repository: jeffallan/claude-skills
+    documentation: https://jeffallan.github.io/claude-skills/
+    trust: community
+    updatePolicy: review
+    allowedSkills:
+      - architecture-designer
+      - code-reviewer
+      - debugging-wizard
+      - feature-forge
+      - fullstack-guardian
+      - nextjs-developer
+      - playwright-expert
+      - postgres-pro
+      - prompt-engineer
+      - rag-architect
+      - rails-expert
+      - react-expert
+      - secure-code-guardian
+      - security-reviewer
+      - test-master
+      - typescript-pro

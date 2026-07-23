@@ -27,3 +27,9 @@ workflows: { policy: risk-adaptive, include: [], exclude: [] }
 ```
 
 Profiles, detectors, sources, workflows, gates, prompt signals, and targets are catalog data. Installation previews by default, never overwrites unmanaged files, and requires `--force` for locally modified owned files.
+
+## Jeff Allan Claude Skills routing
+
+The reviewed community source `jeffallan/claude-skills` is enabled by the base profile. Workflow commands explicitly route feature, debugging, testing, review, security, and browser-verification stages to the relevant external skills. Detected profiles add focused specialists such as `typescript-pro`, `nextjs-developer`, `react-expert`, `rails-expert`, `postgres-pro`, `prompt-engineer`, and `rag-architect`.
+
+External skills remain allowlisted in `catalog/sources/trusted.yaml` and use the source's `main` ref. Run `omnitech-rulesync plan` to review the selected source and skills before approving installation.

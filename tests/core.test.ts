@@ -57,8 +57,23 @@ describe("installation", () => {
     const manifest = manifestSchema.parse({ targets: ["claudecode", "codexcli", "cursor", "windsurf", "copilot"] });
     const inspection = await inspectRepository(root, profiles);
     const plan = buildPlan(inspection, manifest, resolveSelection(inspection, manifest, profiles, workflows));
+    expect(plan.sources).toContainEqual(
+      expect.objectContaining({
+        source: "jeffallan/claude-skills",
+        skills: expect.arrayContaining(["typescript-pro", "debugging-wizard", "test-master"]),
+      }),
+    );
     await installPlan(plan, manifest, workflows, { generate: false });
     expect(await checkOwnedFiles(root)).toEqual([]);
+    const rulesyncConfig = JSON.parse(await fs.readFile(path.join(root, "rulesync.jsonc"), "utf8"));
+    expect(rulesyncConfig.sources).toContainEqual(
+      expect.objectContaining({
+        source: "jeffallan/claude-skills",
+        skills: expect.arrayContaining(["typescript-pro"]),
+      }),
+    );
+    const bugCommand = await fs.readFile(path.join(root, ".rulesync/commands/bug.md"), "utf8");
+    expect(bugCommand).toContain("`debugging-wizard`");
     await installPlan(plan, manifest, workflows, { generate: false });
     await fs.appendFile(path.join(root, ".rulesync/rules/base.md"), "changed");
     expect(await checkOwnedFiles(root)).toContain("Modified owned file: .rulesync/rules/base.md");

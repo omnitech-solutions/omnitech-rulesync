@@ -7,3 +7,8 @@ includes:
   rules: [base]
   skills: [systematic-debugging, verification-before-completion, brainstorming, planning, testing, code-review, omnitech-router]
   workflows: [discovery, trivial-change, feature, bug, test, review, security]
+  sources:
+    - source: jeffallan/claude-skills
+      ref: main
+      trust: community
+      skills: [architecture-designer, code-reviewer, debugging-wizard, feature-forge, fullstack-guardian, playwright-expert, secure-code-guardian, security-reviewer, test-master]

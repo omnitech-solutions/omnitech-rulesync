@@ -2,6 +2,11 @@
   "name": "@omnitech/rulesync",
   "version": "0.1.0",
   "private": true,
+  "description": "Repository-aware AI rules and workflow installer",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
   "type": "module",
   "bin": {
     "omnitech-rulesync": "dist/cli.js"
@@ -14,7 +19,8 @@
     "format:check": "biome format .",
     "lint": "biome lint .",
     "lint:fix": "biome lint --write .",
-    "prepare": "simple-git-hooks",
+    "hooks:install": "simple-git-hooks",
+    "prepare": "pnpm build && simple-git-hooks",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },

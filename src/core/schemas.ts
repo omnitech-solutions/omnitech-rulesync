@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const agentTargetSchema = z.enum(["claudecode", "codexcli", "cursor", "windsurf", "copilot"]);
-const sourceSchema = z.object({
+export const sourceSchema = z.object({
   source: z.string().min(1),
   ref: z.string().optional(),
   skills: z.array(z.string()).default([]),
@@ -38,12 +38,14 @@ export const profileSchema = z.object({
       rules: z.array(z.string()).default([]),
       skills: z.array(z.string()).default([]),
       workflows: z.array(z.string()).default([]),
+      sources: z.array(sourceSchema).default([]),
     })
-    .default({ rules: [], skills: [], workflows: [] }),
+    .default({ rules: [], skills: [], workflows: [], sources: [] }),
 });
 const stageSchema = z.object({
   id: z.string(),
   skills: z.array(z.string()).default([]),
+  sourceSkills: z.array(z.string()).default([]),
   gate: z.enum(["none", "approval", "evidence"]).default("none"),
 });
 export const workflowSchema = z.object({
@@ -52,6 +54,7 @@ export const workflowSchema = z.object({
   intents: z.array(z.string()).min(1),
   priority: z.number().int().default(0),
   signals: z.array(z.string()).default([]),
+  sources: z.array(sourceSchema).default([]),
   stages: z.array(stageSchema).min(1),
 });
 export const lockSchema = z.object({
@@ -67,4 +70,5 @@ export const lockSchema = z.object({
 export type Manifest = z.infer<typeof manifestSchema>;
 export type Profile = z.infer<typeof profileSchema>;
 export type Workflow = z.infer<typeof workflowSchema>;
+export type Source = z.infer<typeof sourceSchema>;
 export type Lockfile = z.infer<typeof lockSchema>;

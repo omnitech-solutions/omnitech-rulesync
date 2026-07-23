@@ -1,6 +1,25 @@
 import type { Inspection } from "./inspect";
-import type { Manifest, Profile, Workflow } from "./schemas";
-export type Resolution = { profiles: Profile[]; workflows: Workflow[]; rules: string[]; skills: string[] };
+import type { Manifest, Profile, Source, Workflow } from "./schemas";
+export type Resolution = {
+  profiles: Profile[];
+  workflows: Workflow[];
+  rules: string[];
+  skills: string[];
+  sources: Source[];
+};
+
+function mergeSources(sources: Source[]): Source[] {
+  const merged = new Map<string, Source>();
+  for (const source of sources) {
+    const key = `${source.source}@${source.ref ?? ""}`;
+    const current = merged.get(key);
+    merged.set(key, {
+      ...source,
+      skills: [...new Set([...(current?.skills ?? []), ...source.skills])].sort(),
+    });
+  }
+  return [...merged.values()].sort((a, b) => a.source.localeCompare(b.source));
+}
 export function resolveSelection(
   inspection: Inspection,
   manifest: Manifest,
@@ -18,10 +37,12 @@ export function resolveSelection(
   const rules = new Set<string>();
   const skills = new Set<string>();
   const workflowIds = new Set<string>();
+  const sources: Source[] = [...manifest.sources];
   for (const p of selected) {
     for (const value of p.includes.rules) rules.add(value);
     for (const value of p.includes.skills) skills.add(value);
     for (const value of p.includes.workflows) workflowIds.add(value);
+    sources.push(...p.includes.sources);
   }
   for (const value of manifest.workflows.include) workflowIds.add(value);
   for (const value of manifest.workflows.exclude) workflowIds.delete(value);
@@ -30,7 +51,14 @@ export function resolveSelection(
     const w = byWorkflow.get(id);
     if (!w) throw new Error(`Unknown workflow: ${id}`);
     for (const value of w.stages.flatMap((stage) => stage.skills)) skills.add(value);
+    sources.push(...w.sources);
     return w;
   });
-  return { profiles: selected, workflows: selectedWorkflows, rules: [...rules].sort(), skills: [...skills].sort() };
+  return {
+    profiles: selected,
+    workflows: selectedWorkflows,
+    rules: [...rules].sort(),
+    skills: [...skills].sort(),
+    sources: mergeSources(sources),
+  };
 }

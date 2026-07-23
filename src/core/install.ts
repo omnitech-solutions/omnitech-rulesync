@@ -47,7 +47,7 @@ export async function installPlan(
   owned["rulesync.jsonc"] = await writeOwnedFile(
     plan.targetRoot,
     "rulesync.jsonc",
-    renderRulesync(manifest),
+    renderRulesync(manifest, plan.sources),
     previous,
     force,
   );
@@ -67,14 +67,14 @@ export async function installPlan(
       targetRoot: plan.targetRoot,
       profiles: plan.profiles,
       workflows: plan.workflows,
-      sources: manifest.sources,
+      sources: plan.sources,
       ownedFiles: owned,
     }),
   );
-  if (options.generate !== false) runRulesync(plan.targetRoot, manifest.sources.length > 0);
+  if (options.generate !== false) runRulesync(plan.targetRoot, plan.sources.length > 0);
 }
-function renderRulesync(manifest: Manifest): string {
-  const sources = manifest.sources.map(({ source, ref, skills }) => ({
+function renderRulesync(manifest: Manifest, configuredSources = manifest.sources): string {
+  const sources = configuredSources.map(({ source, ref, skills }) => ({
     source,
     ...(ref ? { ref } : {}),
     ...(skills.length ? { skills } : {}),
@@ -97,10 +97,10 @@ function renderRulesync(manifest: Manifest): string {
 }
 function renderCommand(workflow: Workflow): string {
   const stages = workflow.stages
-    .map(
-      (s, i) =>
-        `${i + 1}. **${s.id}**.${s.skills.length ? ` Activate skills: ${s.skills.map((v) => `\`${v}\``).join(", ")}.` : ""}${s.gate === "approval" ? " Stop for explicit approval before continuing." : s.gate === "evidence" ? " Record concrete verification evidence before continuing." : ""}`,
-    )
+    .map((s, i) => {
+      const stageSkills = [...s.skills, ...s.sourceSkills];
+      return `${i + 1}. **${s.id}**.${stageSkills.length ? ` Activate skills: ${stageSkills.map((v) => `\`${v}\``).join(", ")}.` : ""}${s.gate === "approval" ? " Stop for explicit approval before continuing." : s.gate === "evidence" ? " Record concrete verification evidence before continuing." : ""}`;
+    })
     .join("\n");
   return `---\ndescription: ${JSON.stringify(workflow.description)}\ntargets: ["*"]\n---\n\n# ${workflow.id} workflow\n\nFollow applicable stages in order and activate required skills before each stage.\n\n${stages}\n`;
 }

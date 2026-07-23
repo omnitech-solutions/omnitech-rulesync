@@ -11,7 +11,7 @@ export function buildPlan(inspection: Inspection, manifest: Manifest, resolution
     rules: resolution.rules,
     skills: resolution.skills,
     targets: manifest.targets,
-    sources: manifest.sources,
+    sources: resolution.sources,
     files: [
       "omnitech-rulesync.yaml",
       "omnitech-rulesync.lock.yaml",

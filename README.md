@@ -7,21 +7,21 @@ Repository-aware AI rules and workflow installation for Claude Code, Codex, Curs
 No global installation is required. From the repository that should receive the rules and skills, run:
 
 ```bash
-pnpm dlx github:omnitech-solutions/omnitech-rulesync plan
-pnpm dlx github:omnitech-solutions/omnitech-rulesync install --yes
-pnpm dlx github:omnitech-solutions/omnitech-rulesync check
+pnpm dlx --allow-build=@omnitech/rulesync github:omnitech-solutions/omnitech-rulesync plan
+pnpm dlx --allow-build=@omnitech/rulesync github:omnitech-solutions/omnitech-rulesync install --yes
+pnpm dlx --allow-build=@omnitech/rulesync github:omnitech-solutions/omnitech-rulesync check
 ```
 
 For a private GitHub repository, use the SSH package spec with an authenticated GitHub key:
 
 ```bash
-pnpm dlx git+ssh://git@github.com/omnitech-solutions/omnitech-rulesync.git plan
+pnpm dlx --allow-build=@omnitech/rulesync git+ssh://git@github.com/omnitech-solutions/omnitech-rulesync.git plan
 ```
 
 To pin the tool in a project instead of downloading it for each invocation:
 
 ```bash
-pnpm add --save-dev github:omnitech-solutions/omnitech-rulesync
+pnpm add --save-dev --allow-build=@omnitech/rulesync github:omnitech-solutions/omnitech-rulesync
 pnpm exec omnitech-rulesync plan
 pnpm exec omnitech-rulesync install --yes
 ```

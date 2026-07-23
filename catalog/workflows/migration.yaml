@@ -1,0 +1,10 @@
+id: migration
+description: Plan and execute data or compatibility migrations safely
+intents: [migration]
+priority: 12
+signals: [migration, schema, database change, upgrade, backfill, compatibility]
+stages:
+  - { id: compatibility-analysis, skills: [planning], gate: evidence }
+  - { id: staged-plan, skills: [planning], gate: approval }
+  - { id: implement, skills: [], gate: none }
+  - { id: verify-forward-and-rollback, skills: [testing, verification-before-completion], gate: evidence }

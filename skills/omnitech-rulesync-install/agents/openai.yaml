@@ -1,0 +1,4 @@
+interface:
+  display_name: Install Omnitech Rulesync
+  short_description: Configure repository-specific AI rules and workflows
+  default_prompt: Inspect this repository, preview the recommended Omnitech Rulesync configuration, and wait for approval before installing it.

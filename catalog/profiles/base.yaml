@@ -1,0 +1,9 @@
+id: base
+description: Cross-stack engineering workflow baseline
+tags: [engineering]
+autoSelectScore: 100
+detect: []
+includes:
+  rules: [base]
+  skills: [systematic-debugging, verification-before-completion, brainstorming, planning, testing, code-review, omnitech-router]
+  workflows: [discovery, trivial-change, feature, bug, test, review, security]

@@ -1,0 +1,12 @@
+id: feature
+description: Design and implement a non-trivial feature safely
+intents: [feature, implementation]
+priority: 4
+signals: [implement, build, add feature, create, integrate, support]
+stages:
+  - { id: resolve-design, skills: [brainstorming], gate: approval }
+  - { id: plan, skills: [planning], gate: approval }
+  - { id: implement, skills: [], gate: none }
+  - { id: test, skills: [testing], gate: evidence }
+  - { id: verify, skills: [verification-before-completion], gate: evidence }
+  - { id: review, skills: [code-review], gate: evidence }

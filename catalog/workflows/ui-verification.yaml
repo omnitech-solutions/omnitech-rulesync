@@ -1,0 +1,9 @@
+id: ui-verification
+description: Verify browser-visible behavior and accessibility
+intents: [ui, browser]
+priority: 6
+signals: [ui, browser, hydration, accessibility, visual, component, page]
+stages:
+  - { id: reproduce-in-browser, skills: [systematic-debugging], gate: evidence }
+  - { id: implement, skills: [], gate: none }
+  - { id: browser-verification, skills: [testing, verification-before-completion], gate: evidence }

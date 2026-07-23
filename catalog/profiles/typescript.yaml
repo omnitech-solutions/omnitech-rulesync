@@ -1,0 +1,8 @@
+id: typescript
+description: TypeScript project rules
+tags: [node, typescript]
+autoSelectScore: 80
+detect:
+  - { kind: file, pattern: tsconfig.json, score: 90 }
+  - { kind: packageDependency, name: typescript, score: 90 }
+includes: { rules: [typescript], skills: [testing], workflows: [feature, bug, test, review] }

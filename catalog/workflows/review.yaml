@@ -1,0 +1,9 @@
+id: review
+description: Review changes for correctness, risk, security, and regressions
+intents: [review]
+priority: 8
+signals: [review, audit, inspect diff, pull request, pr review]
+stages:
+  - { id: inspect-diff, skills: [code-review], gate: none }
+  - { id: validate-findings, skills: [verification-before-completion], gate: evidence }
+  - { id: report-by-severity, skills: [code-review], gate: evidence }

@@ -1,0 +1,6 @@
+schemaVersion: 1
+sources:
+  - { id: anthropic, repository: anthropics/skills, trust: vendor, updatePolicy: review, allowedSkills: [pptx, pdf, frontend-design, webapp-testing] }
+  - { id: vercel, repository: vercel-labs/agent-skills, trust: vendor, updatePolicy: review, allowedSkills: [react-best-practices, composition-patterns, web-design-guidelines] }
+  - { id: langchain, repository: langchain-ai/langchain-skills, trust: vendor, updatePolicy: review, allowedSkills: [langchain, langgraph] }
+  - { id: superpowers-ruby, repository: lucianghinda/superpowers-ruby, trust: community, updatePolicy: review, allowedSkills: [ruby, rails-guides, brakeman, test-driven-development] }

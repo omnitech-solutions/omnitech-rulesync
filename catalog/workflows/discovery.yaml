@@ -1,0 +1,8 @@
+id: discovery
+description: Understand or refine ambiguous work before implementation
+intents: [explain, explore, brainstorm]
+priority: 1
+signals: [explain, understand, explore, brainstorm, idea, options, how should]
+stages:
+  - { id: inspect-context, skills: [], gate: none }
+  - { id: clarify-intent, skills: [brainstorming], gate: approval }

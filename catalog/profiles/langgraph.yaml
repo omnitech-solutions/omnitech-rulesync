@@ -1,0 +1,8 @@
+id: langgraph
+description: LangChain and LangGraph AI workflow
+tags: [ai, langchain, langgraph]
+autoSelectScore: 80
+detect:
+  - { kind: packageDependency, name: "@langchain/langgraph", score: 100 }
+  - { kind: packageDependency, name: langchain, score: 90 }
+includes: { rules: [ai-workflows], skills: [testing], workflows: [feature, bug, test, review] }

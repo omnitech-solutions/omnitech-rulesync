@@ -1,0 +1,8 @@
+id: trivial-change
+description: Apply a clear low-risk localized change with focused verification
+intents: [small-fix]
+priority: 0
+signals: [typo, rename label, copy change, small change]
+stages:
+  - { id: implement-focused-change, skills: [], gate: none }
+  - { id: verify, skills: [verification-before-completion], gate: evidence }

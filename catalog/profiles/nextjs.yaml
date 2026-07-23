@@ -1,0 +1,8 @@
+id: nextjs
+description: Next.js and React application workflow
+tags: [node, typescript, react, nextjs, web]
+autoSelectScore: 80
+detect:
+  - { kind: packageDependency, name: next, score: 100 }
+  - { kind: file, pattern: "next.config.*", score: 90 }
+includes: { rules: [nextjs], skills: [testing], workflows: [feature, bug, test, review, ui-verification] }

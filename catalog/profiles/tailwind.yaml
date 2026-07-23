@@ -1,0 +1,7 @@
+id: tailwind
+description: Tailwind UI and accessibility workflow
+tags: [css, tailwind, frontend]
+autoSelectScore: 80
+detect:
+  - { kind: packageDependency, name: tailwindcss, score: 100 }
+includes: { rules: [tailwind], skills: [testing], workflows: [feature, review, ui-verification] }

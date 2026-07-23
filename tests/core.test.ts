@@ -4,7 +4,7 @@ import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
 import { loadProfiles, loadWorkflows } from "../src/core/catalog";
 import { inspectRepository } from "../src/core/inspect";
-import { checkOwnedFiles, installPlan } from "../src/core/install";
+import { checkOwnedFiles, installPlan, resolveRulesyncCli } from "../src/core/install";
 import { buildPlan } from "../src/core/plan";
 import { resolveSelection } from "../src/core/resolve";
 import { routePrompt } from "../src/core/router";
@@ -49,6 +49,11 @@ describe("routing", () => {
 });
 
 describe("installation", () => {
+  it("resolves the installed Rulesync executable", async () => {
+    expect(path.basename(resolveRulesyncCli())).toBe("index.js");
+    await expect(fs.access(resolveRulesyncCli())).resolves.toBeUndefined();
+  });
+
   it("materializes owned sources idempotently and detects drift", async () => {
     const root = await temp();
     await fs.writeFile(path.join(root, "package.json"), JSON.stringify({ devDependencies: { typescript: "5" } }));

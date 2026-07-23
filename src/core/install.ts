@@ -104,15 +104,15 @@ function renderCommand(workflow: Workflow): string {
     .join("\n");
   return `---\ndescription: ${JSON.stringify(workflow.description)}\ntargets: ["*"]\n---\n\n# ${workflow.id} workflow\n\nFollow applicable stages in order and activate required skills before each stage.\n\n${stages}\n`;
 }
-function rulesyncCli() {
-  return path.join(projectRoot(), "node_modules/rulesync/dist/cli/index");
+export function resolveRulesyncCli() {
+  return path.join(projectRoot(), "node_modules/rulesync/dist/cli/index.js");
 }
 function runRulesync(cwd: string, installSources: boolean) {
   if (installSources) {
-    const install = spawnSync(process.execPath, [rulesyncCli(), "install"], { cwd, stdio: "inherit" });
+    const install = spawnSync(process.execPath, [resolveRulesyncCli(), "install"], { cwd, stdio: "inherit" });
     if (install.status !== 0) throw new Error(`rulesync install failed (${install.status ?? 1})`);
   }
-  const result = spawnSync(process.execPath, [rulesyncCli(), "generate"], { cwd, stdio: "inherit" });
+  const result = spawnSync(process.execPath, [resolveRulesyncCli(), "generate"], { cwd, stdio: "inherit" });
   if (result.status !== 0) throw new Error(`rulesync generate failed (${result.status ?? 1})`);
 }
 export async function checkOwnedFiles(root: string): Promise<string[]> {
@@ -130,7 +130,10 @@ export async function checkOwnedFiles(root: string): Promise<string[]> {
   return errors;
 }
 export function checkGeneratedFiles(root: string): string | undefined {
-  const result = spawnSync(process.execPath, [rulesyncCli(), "generate", "--check"], { cwd: root, encoding: "utf8" });
+  const result = spawnSync(process.execPath, [resolveRulesyncCli(), "generate", "--check"], {
+    cwd: root,
+    encoding: "utf8",
+  });
   return result.status === 0
     ? undefined
     : (result.stdout + result.stderr).trim() || `Generated output is stale (${result.status ?? 1})`;

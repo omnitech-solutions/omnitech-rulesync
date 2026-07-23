@@ -62,7 +62,7 @@ export async function installPlan(
     path.join(plan.targetRoot, LOCK_FILE),
     renderLock({
       schemaVersion: 1,
-      generatorVersion: "0.1.0",
+      generatorVersion: "0.1.1",
       generatedAt: new Date().toISOString(),
       targetRoot: plan.targetRoot,
       profiles: plan.profiles,

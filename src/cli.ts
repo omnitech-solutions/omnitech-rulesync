@@ -14,7 +14,7 @@ import { routePrompt } from "./core/router";
 const app = new Command()
   .name("omnitech-rulesync")
   .description("Repository-aware cross-agent Rulesync installer")
-  .version("0.1.1");
+  .version("0.1.2");
 async function createPlan(root: string) {
   const [profiles, workflows, manifest] = await Promise.all([loadProfiles(), loadWorkflows(), readManifest(root)]);
   const inspection = await inspectRepository(root, profiles);

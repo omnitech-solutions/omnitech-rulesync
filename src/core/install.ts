@@ -1,6 +1,7 @@
 import { spawnSync } from "node:child_process";
 import fs from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { copyTreeOwned, sha256, writeOwnedFile } from "./files";
 import { LOCK_FILE, MANIFEST_FILE, readLock, renderLock, renderManifest } from "./manifest";
 import { projectRoot } from "./paths";
@@ -62,7 +63,7 @@ export async function installPlan(
     path.join(plan.targetRoot, LOCK_FILE),
     renderLock({
       schemaVersion: 1,
-      generatorVersion: "0.1.1",
+      generatorVersion: "0.1.2",
       generatedAt: new Date().toISOString(),
       targetRoot: plan.targetRoot,
       profiles: plan.profiles,
@@ -83,7 +84,7 @@ function renderRulesync(manifest: Manifest, configuredSources = manifest.sources
     {
       $schema: "https://github.com/dyoshikawa/rulesync/releases/latest/download/config-schema.json",
       targets: manifest.targets,
-      features: ["rules", "commands", "skills", "subagents", "checks"],
+      features: ["rules", "commands", "skills", "subagents"],
       sources,
       delete: true,
       simulateCommands: true,
@@ -105,7 +106,8 @@ function renderCommand(workflow: Workflow): string {
   return `---\ndescription: ${JSON.stringify(workflow.description)}\ntargets: ["*"]\n---\n\n# ${workflow.id} workflow\n\nFollow applicable stages in order and activate required skills before each stage.\n\n${stages}\n`;
 }
 export function resolveRulesyncCli() {
-  return path.join(projectRoot(), "node_modules/rulesync/dist/cli/index.js");
+  const rulesyncEntry = fileURLToPath(import.meta.resolve("rulesync"));
+  return path.join(path.dirname(rulesyncEntry), "cli/index.js");
 }
 function runRulesync(cwd: string, installSources: boolean) {
   if (installSources) {

@@ -1,0 +1,58 @@
+{
+  "name": "@omnitech/rulesync",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "omnitech-rulesync": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsup src/cli.ts --format esm --dts --sourcemap --clean",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test",
+    "dev": "tsx src/cli.ts",
+    "format": "biome format --write .",
+    "format:check": "biome format .",
+    "lint": "biome lint .",
+    "lint:fix": "biome lint --write .",
+    "prepare": "simple-git-hooks",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "commander": "^14.0.0",
+    "fast-glob": "^3.3.3",
+    "picocolors": "^1.1.1",
+    "rulesync": "8.23.0",
+    "yaml": "^2.8.1",
+    "zod": "^4.0.17"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.2.5",
+    "@commitlint/cli": "^20.0.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "@types/node": "^24.0.0",
+    "lint-staged": "^16.1.5",
+    "simple-git-hooks": "^2.13.1",
+    "tsup": "^8.5.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.9.2",
+    "vitest": "^4.0.0"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm exec lint-staged",
+    "commit-msg": "pnpm exec commitlint --edit $1"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,mjs,cjs,json,jsonc,yaml,yml,md}": [
+      "biome check --write --no-errors-on-unmatched"
+    ]
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "simple-git-hooks",
+      "tldjs"
+    ]
+  },
+  "packageManager": "pnpm@11.1.1"
+}
